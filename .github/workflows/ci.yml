@@ -2,17 +2,21 @@ name: CI/CD for Static Website
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master ]   # запускать пайплайн при каждом запуске событий push в ветке master.
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+jobs:                          # таски
+  deploy:                      
+    runs-on: ubuntu-latest     # среда выполнения (ubuntu 24)
+    permissions:               # Разрешения
+      contents: write
+      pages: write
+      id-token: write
     
-    steps:
+    steps:                        # шаги
     - name: Checkout code
       uses: actions/checkout@v3
       
-    - name: Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages                  # деплой на GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
